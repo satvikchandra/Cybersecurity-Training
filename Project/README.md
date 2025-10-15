@@ -1,12 +1,9 @@
 This repository contains my college project demonstrating John the Ripper for educational password cracking simulations.
 
-# John the Ripper
-
-This is the community-enhanced, "jumbo" version of John the Ripper. It has a lot of code, documentation, and data contributed by jumbo developers and the user community. It is easy for new code to be added to jumbo, and the quality requirements are low, although lately we've started subjecting all contributions to quite some automated testing. This means that you get a lot of functionality that is not necessarily "mature", which in turn means that bugs in this code are to be expected.
-
-## John the Ripper password cracker.
+# John the Ripper(JtR) password cracker.
 
 John the Ripper is a fast password cracker, currently available for many flavors of Unix, macOS, Windows, DOS, BeOS, and OpenVMS (the latter requires a contributed patch). Its primary purpose is to detect weak Unix passwords. Besides several crypt(3) password hash types most commonly found on various Unix flavors, supported out of the box are Kerberos/AFS and Windows LM hashes, as well as DES-based tripcodes, plus hundreds of additional hashes and ciphers in "-jumbo" versions.
+
 
 ## How to install
 Go to the official website: 
@@ -27,7 +24,8 @@ For Mac: Use Homebrew if you have it installed: brew install john. Otherwise, do
 Verify installation: Open a command prompt or terminal and type john --version. It should display the version number. If not, double-check your download or search for "John the Ripper installation troubleshooting" on their site.
 
 ## How to use John the Ripper
-- Firstly, open the kali linux operating system. Here, we add a user, for example, david. We set the password for this david user. 
+
+- Firstly, we will use JtR to crack password for an account we have but don't remeber the password. So, open the kali linux operating system. Here, we add a user, for example, david. We set the password for this david user. 
 ```bash
 sudo adduser david
 ```
