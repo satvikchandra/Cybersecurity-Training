@@ -31,10 +31,14 @@ Verify installation: Open a command prompt or terminal and type john --version. 
 ```bash
 sudo adduser david
 ```
+<img width="711" height="409" alt="Screenshot 2025-10-15 235402" src="https://github.com/user-attachments/assets/3b72f1fa-ad90-47bf-baa8-a5b9af719243" />
+
 - Then we find the shadow file which contains the hash password of the david user. It is located in etc folder. We extract the contents of this shadow file using:
 ```bash
 sudo cat shadow
 ```
+<img width="849" height="589" alt="openshadow" src="https://github.com/user-attachments/assets/b71e6fa0-8cdf-4b56-8621-41dbb07efe7b" />
+
 - Then we copy the hash password, create a text file on desktop and paste the hash password in the text file. To create a new file:
 ```bash
 nano hash.txt
@@ -48,4 +52,5 @@ sudo gunzip rockyou.txt.gz
 sudo john -format=crypt --wordlist=/usr/share/wordlists/rockyou.txt hash.txt
 ```
 The password will be successfully cracked!
-  
+<img width="718" height="537" alt="crackpass" src="https://github.com/user-attachments/assets/f26c9b1b-9c8a-4516-8e1a-122f52a211f6" />
+
