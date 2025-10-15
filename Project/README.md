@@ -52,3 +52,23 @@ sudo john -format=crypt --wordlist=/usr/share/wordlists/rockyou.txt hash.txt
 The password will be successfully cracked!
 <img width="718" height="537" alt="crackpass" src="https://github.com/user-attachments/assets/f26c9b1b-9c8a-4516-8e1a-122f52a211f6" />
 
+- If there's a locked zip file, JtR can also crack it open. Suppose there's a file named secret.txt with some contents in it. And it is zipped. So, we first remove the text file and are left with the zip file.
+<img width="514" height="88" alt="Screenshot 2025-10-16 023749" src="https://github.com/user-attachments/assets/f8f74172-785b-4e70-9345-8355e6b8a26c" />
+
+- Then we create a hash file for the zip file.
+```bash
+zip2john secret.zip > zip.hash
+```
+<img width="698" height="160" alt="Screenshot 2025-10-16 024058" src="https://github.com/user-attachments/assets/2e14b2b8-e158-43b3-b5eb-2d715b031dfd" />
+
+- We will need a wordlist so we create our own wordlist with many random passwords inside it. Then JtR uses that file to crack the password for the required zip file.
+```bash
+sudo john --wordlist=password.txt zip.hash
+```
+<img width="705" height="340" alt="Screenshot 2025-10-16 024515" src="https://github.com/user-attachments/assets/29c51362-7925-400b-abc5-2ccecf2b8490" />
+
+- With this we are able to view the content inside the zip file.
+<img width="707" height="248" alt="Screenshot 2025-10-16 024644" src="https://github.com/user-attachments/assets/112596ee-a03d-4cad-a3f1-981e28d5ec3c" />
+
+
+
