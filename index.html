@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cybersecurity Training Report by Ritesh Kumar Gupta</title>
     <style>
+        /* Styles remain the same as before */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
@@ -110,6 +111,33 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
         }
+        .gallery {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        .gallery img {
+            width: 100%;
+            display: none;
+            transition: opacity 1s ease-in-out;
+        }
+        .gallery img.active {
+            display: block;
+            opacity: 1;
+        }
+        .gallery .caption {
+            text-align: center;
+            margin-top: 10px;
+            color: #000000;
+            font-size: 20px;
+            display: none;
+        }
+        .gallery .caption.active {
+            display: block;
+        }
         .certificate-container {
             text-align: center;
             margin-top: 20px;
@@ -149,15 +177,18 @@
             .pdf-container iframe {
                 height: 400px;
             }
+            .gallery img {
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <a href="https://www.gndec.ac.in/"><img src="gnelogo.png" alt="GNDEC Logo"></a>
+            <a href="https://www.gndec.ac.in/"><img src="gndecLogo.png" alt="GNDEC Logo"></a>
             <a href="#" class="home-button" onclick="showSection('home')">Home</a>
-            <a href="https://anshinfotech.org/"><img src="thinkkkk.png" alt="AIT Logo"></a>
+            <a href="https://anshinfotech.org/"><img src="aitlogo.png" alt="AIT Logo"></a>
         </header>
         
         <section id="home" class="section active">
@@ -199,19 +230,21 @@
             <a href="#" onclick="showSection('day27')">Day 27</a>
             <a href="#" onclick="showSection('day28')">Day 28</a>
             <br>
+            <a href="#" onclick="showSection('gallery')">Gallery</a>
+            <br>
             <a style="background-color: rgb(13, 0, 113);" href="#" onclick="showSection('projects')">Projects</a>
         </nav>
         <section id="certificate" class="section">
             <h1>Certificate</h1>
             <div class="certificate-container">
-                <img src="https://raw.githubusercontent.com/satvikchandra/Cybersecurity-Training/main/Certificate/TC.jpg" alt="Training Certificate">
-                <img src="https://raw.githubusercontent.com/satvikchandra/Cybersecurity-Training/main/Certificate/Skill_India.png" alt="Training Certificate">
+                <img src="https://raw.githubusercontent.com/satvikchandra/Cybersecurity-Training/main/TC.jpg" alt="Training Certificate">
+                <img src="https://raw.githubusercontent.com/satvikchandra/Cybersecurity-Training/main/Skill_India.png" alt="Training Certificate">
             </div>
         </section>
         <section id="Final-Report" class="section">
             <h1>Final Report</h1>
             <div class="pdf-container">
-                <iframe src="https://satvikchandra.github.io/Cybersecurity-Training/Daily+Diary/Training+Report.pdf"></iframe>
+                <iframe src="https://satvikchandra.github.io/Cybersecurity-Training/Daily+Diary/Final_Report.pdf"></iframe>
             </div>
         </section>
         <section id="day1" class="section">
@@ -342,16 +375,4 @@
         </section>
         <section id="day22" class="section">
             <h1>Training Report Day 22</h1>
-            <div class="pdf-container">
-                <iframe src="https://satvikchandra.github.io/Cybersecurity-Training/Daily+Diary/Day.22.pdf"></iframe>
-            </div>
-        </section>
-        <section id="day23" class="section">
-            <h1>Training Report Day 23</h1>
-            <div class="pdf-container">
-                <iframe src="https://satvikchandra.github.io/Cybersecurity-Training/Daily+Diary/Day.23.pdf"></iframe>
-            </div>
-        </section>
-        <section id="day24" class="section">
-            <h1>Training Report Day 24</h1>
-           
+            <div
