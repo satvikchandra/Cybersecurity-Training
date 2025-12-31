@@ -1,0 +1,109 @@
+from flask import Flask, request, jsonify, render_template
+import hashlib
+import os
+import time
+from werkzeug.utils import secure_filename
+
+app = Flask(__name__)
+
+# Configuration
+UPLOAD_FOLDER = "uploads"
+ALLOWED_EXTENSIONS = {"txt"}
+app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
+
+# Utility functions
+def allowed_file(filename):
+    return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def hash_password(password, algorithm="sha256"):
+    if algorithm == "md5":
+        return hashlib.md5(password.encode()).hexdigest()
+    elif algorithm == "sha1":
+        return hashlib.sha1(password.encode()).hexdigest()
+    elif algorithm == "sha256":
+        return hashlib.sha256(password.encode()).hexdigest()
+    else:
+        raise ValueError("Unsupported hashing algorithm")
+
+def dictionary_attack(hash_value, filepath, algorithm="sha256"):
+    results = {
+        "target_hash": hash_value,
+        "algorithm": algorithm,
+        "match": None,
+        "attempts": 0,
+        "time_taken": 0
+    }
+    start_time = time.time()
+    try:
+        with open(filepath, "r", encoding="utf-8", errors="ignore") as f:
+            for line in f:
+                candidate = line.strip()
+                results["attempts"] += 1
+                candidate_hash = hash_password(candidate, algorithm)
+                if candidate_hash == hash_value:
+                    results["match"] = candidate
+                    break
+    except Exception as e:
+        results["error"] = str(e)
+    results["time_taken"] = round(time.time() - start_time, 3)
+    return results
+
+# Routes
+@app.route("/")
+def home():
+    return jsonify({"message": "Dictionary Attack Simulator API is running!"})
+
+@app.route("/ui")
+def ui():
+    return render_template("index.html")
+
+@app.route("/upload", methods=["POST"])
+def upload_file():
+    if "file" not in request.files:
+        return jsonify({"error": "No file part"}), 400
+    file = request.files["file"]
+    if file.filename == "":
+        return jsonify({"error": "No selected file"}), 400
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+        file.save(filepath)
+        return jsonify({"message": "File uploaded successfully", "filepath": filepath})
+    return jsonify({"error": "Invalid file type"}), 400
+
+@app.route("/attack", methods=["POST"])
+def attack():
+    data = request.get_json()
+    if not data or "hash" not in data or "filepath" not in data:
+        return jsonify({"error": "Missing required fields"}), 400
+    
+    hash_value = data["hash"]
+    filepath = data["filepath"]
+    algorithm = data.get("algorithm", "sha256")
+    
+    if not os.path.exists(filepath):
+        return jsonify({"error": "File not found"}), 404
+    
+    results = dictionary_attack(hash_value, filepath, algorithm)
+    return jsonify(results)
+
+@app.route("/hash", methods=["POST"])
+def generate_hash():
+    data = request.get_json()
+    if not data or "password" not in data:
+        return jsonify({"error": "Missing password"}), 400
+    
+    password = data["password"]
+    algorithm = data.get("algorithm", "sha256")
+    try:
+        hashed = hash_password(password, algorithm)
+        return jsonify({"password": password, "algorithm": algorithm, "hash": hashed})
+    except ValueError as e:
+        return jsonify({"error": str(e)}), 400
+
+# Run server
+if __name__ == "__main__":
+    app.run(debug=True)
